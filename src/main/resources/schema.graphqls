@@ -1,8 +1,8 @@
 type Query {
-    sellers(filter: SellerFilter, page: PageInput!, sortBy: SellerSortBy): SellerPageableResponse!
+   sellers(filter: SellerFilterInput, page: PageInput!, sortBy: SellerSortBy): SellerPageableResponse!
 }
 
-input SellerFilter {
+input SellerFilterInput {
     searchByName: String
     producerIds: [ID]
     marketplaceIds: [String]
@@ -13,32 +13,6 @@ input PageInput {
     size: Int!
 }
 
-type SellerPageableResponse {
-    meta: PageMeta!
-    data: [Seller!]!
-}
-
-type Seller {
-    sellerName: String
-    externalId: String!
-    producerSellerStates: [ProducerSellerState]!
-    marketplaceId: String
-}
-
-type ProducerSellerState {
-    producerId: ID!
-    producerName: String!
-    sellerState: SellerState!
-    sellerId: ID!
-}
-
-enum SellerState {
-    REGULAR
-    WHITELISTED
-    GREYLISTED
-    BLACKLISTED
-}
-
 enum SellerSortBy {
     SELLER_INFO_EXTERNAL_ID_ASC
     SELLER_INFO_EXTERNAL_ID_DESC
@@ -46,4 +20,29 @@ enum SellerSortBy {
     NAME_DESC
     MARKETPLACE_ID_ASC
     MARKETPLACE_ID_DESC
+}
+
+type SellerPageableResponse {
+    meta: PageMeta!
+    data: [SellerDTO!]!
+}
+
+type SellerDTO {
+    sellerName: String!
+    externalId: String!
+    marketplaceId: String!
+    producerSellerStates: [ProducerSellerStateDTO!]!
+}
+
+type ProducerSellerStateDTO {
+    producerId: ID!
+    producerName: String!
+    sellerState: String!
+    sellerId: ID!
+}
+
+type PageMeta {
+    totalElements: Int!
+    pageSize: Int!
+    totalElements: Int!
 }

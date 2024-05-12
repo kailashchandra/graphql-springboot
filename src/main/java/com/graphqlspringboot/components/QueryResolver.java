@@ -1,4 +1,4 @@
-package com.graphqlspringboot.component;
+package com.graphqlspringboot.components;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,3 +21,4 @@ public class QueryResolver implements GraphQLQueryResolver {
         return sellerService.getSellers(filter, page, sortBy);
     }
 }
+
